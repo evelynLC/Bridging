@@ -1,10 +1,11 @@
+/*MDV: minimal detective value*/
 
-%macro simmdv(n=, eventrate=, w=, miu_Iprior= ,tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
+%macro simmdv(n=, eventnumber=, w=, miu_Iprior= ,tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
 
      data postmdv;
      do HR = 1 to 0.6  by -0.001; 
         datamean=log(HR);
-        dataSE2= 4/(&n. * &eventrate.);
+        dataSE2= 4/&eventnumber.;
 
         /*mean and sd of  difference from posterior based on informative prior ; */
         rou_I=1/&tau_Iprior**2+1/dataSE2;
@@ -36,7 +37,7 @@
     if _n_=1;
     call symput ('MDV',hr);
     n=&n.;
-    eventrate=&eventrate.;
+    eventnumber=&eventnumber.;
     miu_Iprior=&miu_Iprior.;
     tau_Iprior=&tau_Iprior.;
     miu_Vprior=&miu_Vprior.;
@@ -47,23 +48,7 @@
 
 
 
-/*MDD*/
-
-
 %simmdv(n=100, eventrate=0.5, w=0.4, miu_Iprior=log(0.5),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=100, eventrate=0.45, w=0.35, miu_Iprior=log(0.66),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=100, eventrate=0.45, w=0.35, miu_Iprior=log(0.72),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
 
-%simmdv(n=88, eventrate=0.5, w=0.35, miu_Iprior=log(0.6),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=88, eventrate=0.5, w=0.35, miu_Iprior=log(0.66),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=88, eventrate=0.5, w=0.35, miu_Iprior=log(0.72),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-
-%simmdv(n=80, eventrate=0.5, w=0.4, miu_Iprior=log(0.6),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=80, eventrate=0.5, w=0.4, miu_Iprior=log(0.66),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=80, eventrate=0.5, w=0.4, miu_Iprior=log(0.72),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-
-%simmdv(n=100, eventrate=0.45, w=0.5, miu_Iprior=log(0.6),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=100, eventrate=0.45, w=0.5, miu_Iprior=log(0.66),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
-%simmdv(n=100, eventrate=0.45, w=0.5, miu_Iprior=log(0.72),tau_Iprior=0.173,miu_Vprior=0,tau_Vprior=2.59);
 
 
